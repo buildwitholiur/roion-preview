@@ -125,6 +125,7 @@
   --color-custom-gray-600: #6d7a88;
   --color-custom-gray-700: #7a8794;
   --color-custom-white: #fff;
+  --color-custom-white-300: #f1f5f9;
   --color-custom-white-400: #f4f5f9;
   --color-custom-white-500: #fcfeff;
   --color-custom-blue: #2e3192;
@@ -134,11 +135,15 @@
   --color-custom-blue-500: #7e7db9;
   --color-custom-teal: #00d6c1;
   --color-custom-teal-100: #00a99d;
+  --color-custom-teal-200: #29c4be;
   --color-custom-green: #14ae5c;
   --color-custom-green-100: #e5f3e5;
   --color-custom-orange: #ea9c00;
+  --color-custom-orange-400: #e2ae01;
+  --color-custom-orange-500: #ffc533;
   --color-custom-orange-100: #fef4db;
-  --color-custom-red-100: #FCE1E1;
+  --color-custom-red: #ee4d54;
+  --color-custom-red-100: #fce1e1;
 
   --text-font-16: 16px;
   --text-font-16--line-height: 1.5;
@@ -202,10 +207,22 @@
   .nav__link--active {
     @apply bg-custom-blue text-custom-blue-50;
   }
+
+  .custom__card {
+    @apply bg-custom-white rounded-lg border border-custom-gray-100;
+  }
+
+  .table__header-title {
+    @apply flex items-center gap-2 text-font-16 text-custom-black font-bold capitalize mx-auto;
+  }
 }
 
 /* Custom CSS */
 .custom__shadow {
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+}
+
+.custom__shadow--md {
+  box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.15);
 }
 /* Custom CSS */

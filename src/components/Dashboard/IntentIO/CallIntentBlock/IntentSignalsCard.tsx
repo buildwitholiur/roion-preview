@@ -2,14 +2,21 @@ import { intentSignalStyles } from "@/data/intentSignalStyles";
 import type { IntentSignalsCardProps } from "@/types/types";
 
 const IntentSignalsCard = ({
-  title,
-  count,
-  percent,
+  label,
+  value,
+  percentChange,
+  trend,
   amount,
   highlight,
   description,
   intentSignalType,
 }: IntentSignalsCardProps) => {
+  const isPositive = trend === "up";
+
+  const percentColor = isPositive ? "text-custom-green" : "text-custom-red";
+
+  const sign = isPositive ? "+" : "-";
+
   const styles = intentSignalStyles[intentSignalType];
 
   return (
@@ -17,17 +24,18 @@ const IntentSignalsCard = ({
       className={`py-4 px-5 pb-6 min-h-[174px] flex flex-col justify-between ${styles.bgColor}`}
     >
       <h5 className="font-semibold text-font-18 text-custom-gray-500">
-        {title}
+        {label}
       </h5>
 
       <div className="flex items-end gap-5">
         <div className="w-full max-w-[243px] border-r border-custom-gray-100">
           <div className="flex items-center gap-2">
             <h3 className="text-font-48 font-normal text-custom-blue">
-              {count}
+              {value}
             </h3>
-            <p className="text-font-18 font-semibold text-custom-green">
-              {percent}
+
+            <p className={`text-font-18 font-semibold ${percentColor}`}>
+              {`${sign}${percentChange}%`}
             </p>
           </div>
 

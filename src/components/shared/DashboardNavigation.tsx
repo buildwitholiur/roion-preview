@@ -53,8 +53,9 @@ const DashboardNavigation = () => {
             />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="start">
-            <DropdownMenuItem>GitHub</DropdownMenuItem>
-            <DropdownMenuItem>Support</DropdownMenuItem>
+            <DropdownMenuItem>Stats for Last 7 Days</DropdownMenuItem>
+            <DropdownMenuItem>Stats for Last 30 Days</DropdownMenuItem>
+            <DropdownMenuItem>Stats for Last 3 Months</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

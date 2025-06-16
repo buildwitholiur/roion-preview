@@ -13,7 +13,7 @@ const IntentCard = ({ title, isHelp, content }: IntentCardProps) => {
         )}
       </div>
 
-      {content}
+      {content && content}
     </div>
   );
 };

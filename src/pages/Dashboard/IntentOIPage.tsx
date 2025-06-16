@@ -1,6 +1,10 @@
-import IntakeCall from "@/components/Dashboard/IntentIO/IntakeCall/IntakeCall";
+import CallFormChatBlock from "@/components/Dashboard/IntentIO/CallFormChatBlock/CallFormChatBlock";
+import CallIntentBlock from "@/components/Dashboard/IntentIO/CallIntentBlock/CallIntentBlock";
 import IntentTopBar from "@/components/Dashboard/IntentIO/IntentTopBar";
+
+import NotificationBar from "@/components/Dashboard/IntentIO/NotificationBar";
 import DashboardNavigation from "@/components/shared/DashboardNavigation";
+import MarketingBreakdownTable from "@/components/tables/MarketingBreakdownTable/MarketingBreakdownTable";
 
 const IntentOIPage = () => {
   return (
@@ -8,14 +12,24 @@ const IntentOIPage = () => {
       <IntentTopBar
         intentLogo="/images/intentio.svg"
         intentLogoAlt="intentio logo"
-        desc="IntentOI uses a predictive scoring model to estimate potential value
+        description="IntentOI uses a predictive scoring model to estimate potential value
         based by connecting directly to your intake channels—calls, chats, and
         forms—to capture every inbound lead."
       />
 
       <DashboardNavigation />
 
-      <IntakeCall />
+      <CallIntentBlock />
+
+      <NotificationBar
+        description="Only 40% of law firms answered phone calls from potential clients during
+        a secret shopper study, indicating a significant opportunity for firms
+        to improve their responsiveness and capture more leads."
+      />
+
+      <CallFormChatBlock />
+
+      <MarketingBreakdownTable />
     </div>
   );
 };

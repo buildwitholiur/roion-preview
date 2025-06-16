@@ -2,7 +2,7 @@ import IntentCard from "@/components/shared/IntentCard";
 import IntakeOverview from "./IntakeOverview";
 import CallData from "./CallData";
 
-const IntakeCall = () => {
+const CallIntentBlock = () => {
   return (
     <section className="flex gap-7.5 min-h-[545px]">
       {/* Intake Overview */}
@@ -16,4 +16,4 @@ const IntakeCall = () => {
   );
 };
 
-export default IntakeCall;
+export default CallIntentBlock;
