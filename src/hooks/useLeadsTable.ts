@@ -1,18 +1,16 @@
-import * as React from "react";
 import { mockLeads } from "@/data/mock-leads";
 import type { Lead, LeadFormData } from "@/types/types";
 import { combineNames, splitFullName } from "@/lib/utils";
+import { useCallback, useState } from "react";
 
 export function useLeadsTable() {
-  const [leads, setLeads] = React.useState<Lead[]>(mockLeads);
-  const [expandedRows, setExpandedRows] = React.useState<Set<string>>(
-    new Set()
+  const [leads, setLeads] = useState<Lead[]>(mockLeads);
+  const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
+  const [editingData, setEditingData] = useState<Record<string, LeadFormData>>(
+    {}
   );
-  const [editingData, setEditingData] = React.useState<
-    Record<string, LeadFormData>
-  >({});
 
-  const handleRowExpand = React.useCallback(
+  const handleRowExpand = useCallback(
     (rowId: string) => {
       const newExpandedRows = new Set<string>();
 
@@ -43,7 +41,30 @@ export function useLeadsTable() {
     [expandedRows, leads, editingData]
   );
 
-  const handleSave = React.useCallback(
+  // ADDED: New function to handle row deletion
+  const handleDeleteRow = useCallback(
+    (rowId: string) => {
+      // Remove from leads array
+      setLeads((prev) => prev.filter((lead) => lead.id.toString() !== rowId));
+
+      // Clean up expanded rows
+      const newExpandedRows = new Set(expandedRows);
+      newExpandedRows.delete(rowId);
+      setExpandedRows(newExpandedRows);
+
+      // Clean up editing data
+      setEditingData((prev) => {
+        const newData = { ...prev };
+        delete newData[rowId];
+        return newData;
+      });
+
+      console.log("Row deleted:", rowId);
+    },
+    [expandedRows]
+  );
+
+  const handleSave = useCallback(
     (leadId: string) => {
       const formData = editingData[leadId];
       if (!formData) return;
@@ -72,7 +93,7 @@ export function useLeadsTable() {
     [editingData, expandedRows]
   );
 
-  const updateEditingData = React.useCallback(
+  const updateEditingData = useCallback(
     (leadId: string, field: keyof LeadFormData, value: string) => {
       setEditingData((prev) => ({
         ...prev,
@@ -92,5 +113,6 @@ export function useLeadsTable() {
     handleRowExpand,
     handleSave,
     updateEditingData,
+    handleDeleteRow,
   };
 }

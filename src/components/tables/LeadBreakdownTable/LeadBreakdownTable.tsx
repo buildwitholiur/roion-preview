@@ -13,16 +13,22 @@ const LeadBreakdownTable = () => {
     handleRowExpand,
     handleSave,
     updateEditingData,
+    handleDeleteRow,
   } = useLeadsTable();
 
   const columns = useMemo(
-    () => leadsColumns({ expandedRows, onRowExpand: handleRowExpand }),
-    [expandedRows, handleRowExpand]
+    () =>
+      leadsColumns({
+        expandedRows,
+        onRowExpand: handleRowExpand,
+        onDeleteRow: handleDeleteRow,
+      }),
+    [expandedRows, handleRowExpand, handleDeleteRow]
   );
 
   const renderExpandedRow = useCallback(
     (lead: Lead) => {
-      const formData = editingData[lead.id];
+      const formData = editingData[lead.id.toString()];
       if (!formData) return null;
 
       return (
@@ -51,6 +57,7 @@ const LeadBreakdownTable = () => {
         showSearch={true}
         showColumnToggle={true}
         showPagination={true}
+        onRowClick={handleRowExpand}
       />
     </div>
   );

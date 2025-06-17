@@ -2,15 +2,24 @@ import type { ColumnDef } from "@tanstack/react-table";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import type { Lead } from "@/types/types";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 
 interface LeadsColumnsProps {
   expandedRows: Set<string>;
   onRowExpand: (rowId: string) => void;
+  onDeleteRow: (rowId: string) => void;
 }
 
 export function leadsColumns({
   expandedRows,
   onRowExpand,
+  onDeleteRow,
 }: LeadsColumnsProps): ColumnDef<Lead>[] {
   return [
     {
@@ -69,11 +78,19 @@ export function leadsColumns({
           </button>
         );
       },
-      cell: ({ row }) => (
-        <div className="text-center font-medium text-font-16">
-          {row.getValue("date")}
-        </div>
-      ),
+      cell: ({ row }) => {
+        const date = new Date(row.getValue("date"));
+
+        return (
+          <div className="text-center font-medium text-font-16">
+            {date.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </div>
+        );
+      },
     },
     {
       accessorKey: "phone_number",
@@ -177,14 +194,40 @@ export function leadsColumns({
       },
       cell: ({ row }) => {
         const value = row.getValue("lead_value") as number;
+
+        const rowId = (row.original as Lead).id.toString();
+
         return (
-          <div className="flex items-center justify-center gap-2.5">
+          <div className="flex items-center justify-center">
             <span>${(value / 100).toLocaleString()}</span>
-            <img
-              className="w-1 h-auto"
-              src="/images/vertical-dots.svg"
-              alt="dots"
-            />
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 w-6 p-0 focus-visible:outline-0"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <img
+                    className="w-1 h-auto"
+                    src="/images/vertical-dots.svg"
+                    alt="dots"
+                  />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-32">
+                <DropdownMenuItem
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDeleteRow(rowId);
+                  }}
+                  className="text-red-600 focus:text-red-600 focus:bg-red-50"
+                >
+                  Delete Row
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         );
       },

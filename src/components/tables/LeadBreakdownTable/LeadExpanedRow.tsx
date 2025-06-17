@@ -50,9 +50,9 @@ export function LeadExpandRow({
   };
 
   return (
-    <div className="px-8 xl:pl-19 xl:pr-4 pb-5.5 pt-8.5 space-y-4 bg-custom-white-600 custom__inner-shadow border-l-3 border-l-custom-blue">
+    <div className="px-8 2xl:pl-19 2xl:pr-4 pb-5.5 pt-8.5 space-y-4 bg-custom-white-600 custom__inner-shadow border-l-3 border-l-custom-blue">
       <div className="flex flex-col 2xl:flex-row 2xl:items-center gap-6">
-        <div className="w-full 2xl:max-w-[849px] grid grid-cols-1 2xl:grid-cols-3 gap-4 md:gap-6">
+        <div className="flex-1 grid grid-cols-1 2xl:grid-cols-3 gap-4 md:gap-6">
           <div className="2xl:space-y-6 grid grid-cols-2 2xl:block gap-5">
             <div className="space-y-1">
               <Label htmlFor={`firstName-${lead.id}`}>First Name</Label>
@@ -141,7 +141,7 @@ export function LeadExpandRow({
                     alt="select arrow"
                   />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="w-full">
                   {sourceOptions.map((option) => (
                     <SelectItem key={option} value={option}>
                       {option}
@@ -164,13 +164,13 @@ export function LeadExpandRow({
           </div>
         </div>
 
-        <div className="flex-1 min-w-[300px] flex flex-col 2xl:flex-row 2xl:items-end gap-5 2xl:gap-7">
+        <div className="flex flex-col 2xl:flex-row 2xl:items-end gap-5 2xl:gap-7">
           <Textarea
             id={`additional_notes-${lead.id}`}
             value={formData.additional_notes}
             onChange={(e) => onUpdateField("additional_notes", e.target.value)}
             placeholder="Updated potential value to $4,500 on 5/25"
-            className="w-full min-h-[139px] resize-none"
+            className="w-full 2xl:w-[444px] h-[139px] resize-none"
           />
 
           <Button onClick={onSave} className="min-w-[132px] w-fit">

@@ -36,7 +36,6 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   title?: string;
   searchPlaceholder?: string;
-  onRowClick?: (row: TData) => void;
   expandedRows?: Set<string>;
   onRowExpand?: (rowId: string) => void;
   renderExpandedRow?: (row: TData) => React.ReactNode;
@@ -44,6 +43,7 @@ interface DataTableProps<TData, TValue> {
   showColumnToggle?: boolean;
   showPagination?: boolean;
   children?: (props: { table: any }) => React.ReactNode;
+  onRowClick?: (rowId: string) => void;
 }
 
 export function DataTable<TData, TValue>({
@@ -200,9 +200,7 @@ export function DataTable<TData, TValue>({
                           ? "border-b-0 relative after:absolute after:content-[''] after:top-0 after:left-0 after:w-[3px] after:h-full after:bg-custom-blue"
                           : ""
                       }`}
-                      onClick={() => {
-                        onRowClick?.(row.original);
-                      }}
+                      onClick={() => onRowClick?.(rowId)}
                     >
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id} className="px-3">
@@ -239,7 +237,7 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
 
-      {showPagination && (
+      {showPagination && table.getFilteredRowModel().rows.length > 0 && (
         <Pagination
           currentPage={table.getState().pagination.pageIndex + 1}
           totalPages={table.getPageCount()}

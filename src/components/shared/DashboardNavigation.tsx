@@ -25,7 +25,7 @@ const DashboardNavigation = () => {
           <p className="text-font-18">Filter by Channel:</p>
 
           <Select defaultValue={sourceOptions[0]}>
-            <SelectTrigger className="w-full md:w-fit">
+            <SelectTrigger className="w-full md:w-fit md:min-w-[201px]">
               <SelectValue placeholder="Google My Business" />
 
               <img
