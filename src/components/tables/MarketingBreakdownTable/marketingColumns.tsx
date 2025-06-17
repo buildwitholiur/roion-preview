@@ -4,25 +4,17 @@ import type { ColumnDef } from "@tanstack/react-table";
 export const marketingColumns: ColumnDef<MarketingSource>[] = [
   {
     accessorKey: "channel",
-    header: ({ column }) => {
-      return (
-        <button
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="table__header-title ml-0"
-        >
-          Channel
-          <img src="/images/table-sort.svg" alt="table sort" />
-        </button>
-      );
+    header: () => {
+      return <button className="table__header-title ml-0">Channel</button>;
     },
     cell: ({ row }) => (
-      <div className="font-bold text-custom-blue uppercase text-font-16 px-3">
+      <div className="font-bold text-custom-blue uppercase text-font-16">
         {row.getValue("channel")}
       </div>
     ),
   },
   {
-    accessorKey: "totalLeads",
+    accessorKey: "total_leads",
     header: ({ column }) => {
       return (
         <button
@@ -35,13 +27,13 @@ export const marketingColumns: ColumnDef<MarketingSource>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className="text-center text-font-16">
-        {row.getValue("totalLeads")}
+      <div className="text-center text-font-16 font-medium">
+        {row.getValue("total_leads")}
       </div>
     ),
   },
   {
-    accessorKey: "avgTalkTime",
+    accessorKey: "average_talk_time",
     header: ({ column }) => {
       return (
         <button
@@ -54,13 +46,13 @@ export const marketingColumns: ColumnDef<MarketingSource>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className="text-center text-font-16">
-        {row.getValue("avgTalkTime")}
+      <div className="text-center text-font-16 font-medium">
+        {row.getValue("average_talk_time")}
       </div>
     ),
   },
   {
-    accessorKey: "ringTime",
+    accessorKey: "average_ring_time",
     header: ({ column }) => {
       return (
         <button
@@ -73,11 +65,13 @@ export const marketingColumns: ColumnDef<MarketingSource>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className="text-center text-font-16">{row.getValue("ringTime")}</div>
+      <div className="text-center text-font-16 font-medium">
+        {row.getValue("average_ring_time")}
+      </div>
     ),
   },
   {
-    accessorKey: "avgIntent",
+    accessorKey: "average_intentoi_score",
     header: ({ column }) => {
       return (
         <button
@@ -90,18 +84,16 @@ export const marketingColumns: ColumnDef<MarketingSource>[] = [
       );
     },
     cell: ({ row }) => {
-      const score = row.getValue("avgIntent") as number;
+      const score = row.getValue("average_intentoi_score") as number;
       return (
-        <div className="flex justify-center">
-          <div className="bg-custom-blue py-2 px-[11px] rounded-[60px]">
-            <p className="font-bold text-custom-white">{score}</p>
-          </div>
+        <div className="bg-custom-blue w-10 h-auto aspect-square rounded-full flex items-center justify-center mx-auto">
+          <p className="font-bold text-custom-white">{score}</p>
         </div>
       );
     },
   },
   {
-    accessorKey: "avgValue",
+    accessorKey: "average_lead_value",
     header: ({ column }) => {
       return (
         <button
@@ -114,16 +106,16 @@ export const marketingColumns: ColumnDef<MarketingSource>[] = [
       );
     },
     cell: ({ row }) => {
-      const value = row.getValue("avgValue") as number;
+      const value = row.getValue("average_lead_value") as number;
       return (
-        <div className="text-center text-font-16">
+        <div className="text-center text-font-16 font-medium">
           ${value.toLocaleString()}
         </div>
       );
     },
   },
   {
-    accessorKey: "totalValue",
+    accessorKey: "total_lead_value",
     header: ({ column }) => {
       return (
         <button
@@ -136,9 +128,9 @@ export const marketingColumns: ColumnDef<MarketingSource>[] = [
       );
     },
     cell: ({ row }) => {
-      const value = row.getValue("totalValue") as number;
+      const value = row.getValue("total_lead_value") as number;
       return (
-        <div className="text-center text-font-16">
+        <div className="text-center text-font-16 font-medium">
           ${value.toLocaleString()}
         </div>
       );

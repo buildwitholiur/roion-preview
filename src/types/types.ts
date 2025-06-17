@@ -1,3 +1,12 @@
+export interface HeaderProps {
+  setisMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isMobileMenuOpen: boolean;
+}
+
+export interface SidebarProps {
+  isMobileMenuOpen: boolean;
+}
+
 export type NavLink = {
   label: string;
   path: string;
@@ -74,10 +83,39 @@ export interface IntakeChartConfig {
 export interface MarketingSource {
   id: string;
   channel: string;
-  totalLeads: number;
-  avgTalkTime: string;
-  ringTime: string;
-  avgIntent: number;
-  avgValue: number;
-  totalValue: number;
+  total_leads: number;
+  average_talk_time: string;
+  average_ring_time: string;
+  average_intentoi_score: number;
+  average_lead_value: number;
+  total_lead_value: number;
+}
+
+export interface Lead {
+  id: number;
+  marketing_source: string;
+  lead_value: number;
+  full_name: string;
+  date: string;
+  phone_number: string;
+  intent_score: number;
+  intent_score_bg: "green" | "yellow" | "red";
+  additional_notes: string;
+}
+
+export interface LeadFormData {
+  firstName: string;
+  lastName: string;
+  date: string;
+  phone_number: string;
+  marketing_source: string;
+  lead_value: string;
+  additional_notes: string;
+}
+
+export interface LeadExpandRowProps {
+  lead: Lead;
+  formData: LeadFormData;
+  onUpdateField: (field: keyof LeadFormData, value: string) => void;
+  onSave: () => void;
 }

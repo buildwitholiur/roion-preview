@@ -23,7 +23,7 @@ const IntentStatItem = ({
       </h4>
 
       <h3
-        className={`font-normal text-font-48 ${
+        className={`font-normal text-font-40 md:text-font-48 ${
           valueColor ?? "text-custom-blue"
         }`}
       >

@@ -11,7 +11,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, Search } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,6 +29,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Pagination } from "./pagination";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -52,7 +53,6 @@ export function DataTable<TData, TValue>({
   searchPlaceholder = "Search...",
   onRowClick,
   expandedRows,
-  onRowExpand,
   renderExpandedRow,
   showSearch = true,
   showColumnToggle = true,
@@ -97,56 +97,67 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      {title && (
-        <h2 className="text-font-20 font-bold text-custom-gray-600 mb-2.5">
-          {title}
-        </h2>
-      )}
+      <div
+        className={`flex flex-col md:flex-row md:items-center gap-3 md:gap-5 ${
+          showSearch ? "mb-5" : "mb-2.5"
+        }`}
+      >
+        {title && (
+          <h2 className="text-font-18 md:text-font-20 font-bold text-custom-gray-600">
+            {title}
+          </h2>
+        )}
 
-      {(showSearch || showColumnToggle) && (
-        <div className="flex items-center justify-between mb-4">
-          {showSearch && (
-            <div className="relative max-w-sm">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <Input
-                placeholder={searchPlaceholder}
-                value={globalFilter}
-                onChange={(event) => setGlobalFilter(event.target.value)}
-                className="pl-10"
-              />
-            </div>
-          )}
+        {(showSearch || showColumnToggle) && (
+          <div className="flex items-center justify-between">
+            {showSearch && (
+              <div className="relative w-full max-w-[334px]">
+                <img
+                  className="absolute left-5 top-1/2 transform -translate-y-1/2 w-4.5 h-auto"
+                  src="/images/search.svg"
+                  alt="search"
+                />
 
-          {showColumnToggle && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-auto">
-                  Columns <ChevronDown className="ml-2 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {table
-                  .getAllColumns()
-                  .filter((column) => column.getCanHide())
-                  .map((column) => {
-                    return (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) =>
-                          column.toggleVisibility(!!value)
-                        }
-                      >
-                        {column.id}
-                      </DropdownMenuCheckboxItem>
-                    );
-                  })}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
-        </div>
-      )}
+                <Input
+                  placeholder={searchPlaceholder}
+                  value={globalFilter}
+                  onChange={(event) => setGlobalFilter(event.target.value)}
+                  className="pl-12"
+                />
+              </div>
+            )}
+
+            {!showColumnToggle && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="ml-auto">
+                    Columns <ChevronDown className="ml-2 h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  {table
+                    .getAllColumns()
+                    .filter((column) => column.getCanHide())
+                    .map((column) => {
+                      return (
+                        <DropdownMenuCheckboxItem
+                          key={column.id}
+                          className="capitalize"
+                          checked={column.getIsVisible()}
+                          onCheckedChange={(value) =>
+                            column.toggleVisibility(!!value)
+                          }
+                        >
+                          {column.id}
+                        </DropdownMenuCheckboxItem>
+                      );
+                    })}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+          </div>
+        )}
+      </div>
 
       <div className="border border-custom-blue-50 custom__shadow--md">
         <Table>
@@ -154,7 +165,7 @@ export function DataTable<TData, TValue>({
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow
                 key={headerGroup.id}
-                className="bg-custom-white-300 border-transparent"
+                className="bg-custom-white-300 hover:bg-custom-white-300 border-transparent"
               >
                 {headerGroup.headers.map((header) => {
                   return (
@@ -177,7 +188,7 @@ export function DataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => {
-                const rowId = (row.original as any).id;
+                const rowId = (row.original as any).id.toString();
                 const isExpanded = expandedRows?.has(rowId);
 
                 return (
@@ -185,14 +196,16 @@ export function DataTable<TData, TValue>({
                     <TableRow
                       data-state={row.getIsSelected() && "selected"}
                       className={`border-custom-blue-50 h-16 cursor-pointer hover:bg-gray-50 ${
-                        isExpanded ? "bg-blue-50" : ""
+                        isExpanded
+                          ? "border-b-0 relative after:absolute after:content-[''] after:top-0 after:left-0 after:w-[3px] after:h-full after:bg-custom-blue"
+                          : ""
                       }`}
                       onClick={() => {
                         onRowClick?.(row.original);
                       }}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id} className="px-0">
+                        <TableCell key={cell.id} className="px-3">
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()
@@ -203,7 +216,7 @@ export function DataTable<TData, TValue>({
                     {isExpanded && renderExpandedRow && (
                       <TableRow>
                         <TableCell colSpan={columns.length} className="p-0">
-                          <div className="bg-gray-50 border-t border-l-4 border-l-blue-500">
+                          <div className="">
                             {renderExpandedRow(row.original)}
                           </div>
                         </TableCell>
@@ -227,52 +240,14 @@ export function DataTable<TData, TValue>({
       </div>
 
       {showPagination && (
-        <div className="flex items-center justify-between space-x-2 py-4">
-          <div className="text-sm text-gray-500">
-            {table.getFilteredRowModel().rows.length} Leads
-          </div>
-          <div className="flex items-center space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-            >
-              Previous
-            </Button>
-            <div className="flex items-center space-x-1">
-              {Array.from(
-                { length: Math.min(5, table.getPageCount()) },
-                (_, i) => {
-                  const pageIndex = i + 1;
-                  return (
-                    <Button
-                      key={pageIndex}
-                      variant={
-                        table.getState().pagination.pageIndex + 1 === pageIndex
-                          ? "default"
-                          : "outline"
-                      }
-                      size="sm"
-                      onClick={() => table.setPageIndex(pageIndex - 1)}
-                      className="w-8 h-8 p-0"
-                    >
-                      {pageIndex}
-                    </Button>
-                  );
-                }
-              )}
-            </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-            >
-              Next
-            </Button>
-          </div>
-        </div>
+        <Pagination
+          currentPage={table.getState().pagination.pageIndex + 1}
+          totalPages={table.getPageCount()}
+          onPageChange={(page) => table.setPageIndex(page - 1)}
+          canPreviousPage={table.getCanPreviousPage()}
+          canNextPage={table.getCanNextPage()}
+          totalItems={table.getFilteredRowModel().rows.length}
+        />
       )}
     </>
   );

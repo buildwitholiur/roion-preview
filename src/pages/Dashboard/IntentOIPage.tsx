@@ -4,11 +4,12 @@ import IntentTopBar from "@/components/Dashboard/IntentIO/IntentTopBar";
 
 import NotificationBar from "@/components/Dashboard/IntentIO/NotificationBar";
 import DashboardNavigation from "@/components/shared/DashboardNavigation";
+import LeadBreakdownTable from "@/components/tables/LeadBreakdownTable/LeadBreakdownTable";
 import MarketingBreakdownTable from "@/components/tables/MarketingBreakdownTable/MarketingBreakdownTable";
 
 const IntentOIPage = () => {
   return (
-    <div className="p-7.5 space-y-7.5">
+    <div className="p-5 md:p-7.5 space-y-5 md:space-y-7.5">
       <IntentTopBar
         intentLogo="/images/intentio.svg"
         intentLogoAlt="intentio logo"
@@ -30,6 +31,8 @@ const IntentOIPage = () => {
       <CallFormChatBlock />
 
       <MarketingBreakdownTable />
+
+      <LeadBreakdownTable />
     </div>
   );
 };

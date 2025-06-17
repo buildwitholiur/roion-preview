@@ -1,3 +1,4 @@
+import { sourceOptions } from "@/data/mock-leads";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,17 +15,17 @@ import {
 
 const DashboardNavigation = () => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-5 md:gap-8">
       <h1 className="text-custom-teal-100 text-font-32 font-bold">
         Foryourrights.com
       </h1>
 
-      <div className="flex items-center gap-10">
-        <div className="flex items-center gap-2.5">
+      <div className="flex flex-col md:flex-row md:items-center gap-5 md:gap-10">
+        <div className="flex flex-col md:flex-row md:items-center gap-2.5">
           <p className="text-font-18">Filter by Channel:</p>
 
-          <Select>
-            <SelectTrigger className="w-[201px] !h-9.5 bg-custom-white text-custom-gray-700 !text-font-16 font-medium rounded-sm border-custom-gray-200 focus-visible:border-custom-gray-200 pl-5 pr-[13px]">
+          <Select defaultValue={sourceOptions[0]}>
+            <SelectTrigger className="w-full md:w-fit">
               <SelectValue placeholder="Google My Business" />
 
               <img
@@ -34,9 +35,11 @@ const DashboardNavigation = () => {
               />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="channel1">Channel 1</SelectItem>
-              <SelectItem value="channel2">Channel 2</SelectItem>
-              <SelectItem value="channel3">Channel 3</SelectItem>
+              {sourceOptions.map((option) => (
+                <SelectItem key={option} value={option}>
+                  {option}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>

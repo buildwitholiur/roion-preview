@@ -5,7 +5,7 @@ import ChatsOverview from "./ChatsOverview";
 
 const CallFormChatBlock = () => {
   return (
-    <section className="flex gap-7.5 min-h-[545px]">
+    <section className="flex flex-col xl:flex-row gap-7.5 min-h-[545px]">
       {/* Intake Overview */}
       <IntentCard title="Calls Overview" content={<CallsOverview />} />
       <IntentCard title="Forms Overview" content={<FormsOverview />} />

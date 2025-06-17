@@ -4,7 +4,7 @@ import CallData from "./CallData";
 
 const CallIntentBlock = () => {
   return (
-    <section className="flex gap-7.5 min-h-[545px]">
+    <section className="flex flex-col 2xl:flex-row gap-5 md:gap-7.5 min-h-[545px]">
       {/* Intake Overview */}
       <IntentCard title="Intake Overview" content={<IntakeOverview />} />
       {/* Intake Overview */}

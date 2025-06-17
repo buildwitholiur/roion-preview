@@ -8,7 +8,7 @@ import { Pie, PieChart } from "recharts";
 
 const IntakeSourceChart = () => {
   return (
-    <div className="flex gap-2.5 border-b border-custom-blue-50">
+    <div className="flex flex-col-reverse md:flex-row gap-2.5 border-b border-custom-blue-50">
       <div className="flex-1 space-y-2.5">
         <h4 className="text-font-18 font-semibold text-custom-gray-500">
           Lead Source Breakdown
@@ -27,7 +27,7 @@ const IntakeSourceChart = () => {
         </ul>
       </div>
 
-      <div className="w-full max-w-[302px] relative">
+      <div className="w-full max-w-[302px] h-[200px] md:h-auto relative">
         <ChartContainer
           config={intakeChartConfig}
           className="mx-auto aspect-square h-[206px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"

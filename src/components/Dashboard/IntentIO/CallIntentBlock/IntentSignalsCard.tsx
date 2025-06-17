@@ -27,8 +27,8 @@ const IntentSignalsCard = ({
         {label}
       </h5>
 
-      <div className="flex items-end gap-5">
-        <div className="w-full max-w-[243px] border-r border-custom-gray-100">
+      <div className="flex flex-col md:flex-row md:items-end gap-5">
+        <div className="w-full md:max-w-[243px] md:border-r border-custom-gray-100">
           <div className="flex items-center gap-2">
             <h3 className="text-font-48 font-normal text-custom-blue">
               {value}
