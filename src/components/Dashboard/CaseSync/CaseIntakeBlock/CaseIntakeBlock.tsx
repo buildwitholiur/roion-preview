@@ -1,5 +1,6 @@
 import IntentCard from "@/components/shared/IntentCard";
 import CaseIntakeOverview from "./CaseIntakeOverview";
+import SheetButton from "@/components/shared/SheetButton";
 
 const CaseIntakeBlock = () => {
   return (
@@ -9,14 +10,11 @@ const CaseIntakeBlock = () => {
         title="Intake Overview"
         content={<CaseIntakeOverview />}
         action={
-          <button className="flex items-center gap-2.5 text-font-18 font-medium text-custom-blue-300 hover:underline">
-            Run Match Report with Sheet{" "}
-            <img
-              className="w-4 h-auto"
-              src="/images/file-lines.svg"
-              alt="file lines"
-            />
-          </button>
+          <SheetButton
+            label="Run Match Report with Sheet"
+            icon="/images/file-lines.svg"
+            iconAlt="file lines"
+          />
         }
       />
       {/* Intake Overview */}

@@ -1,4 +1,4 @@
-import { sourceOptions } from "@/data/mock-leads";
+import { sourceSelectOptions } from "@/data/selectOptions";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,7 +24,7 @@ const DashboardNavigation = () => {
         <div className="flex flex-col md:flex-row md:items-center gap-2.5">
           <p className="text-font-18">Filter by Channel:</p>
 
-          <Select defaultValue={sourceOptions[0]}>
+          <Select defaultValue={sourceSelectOptions[0]}>
             <SelectTrigger className="w-full md:w-fit md:min-w-[201px]">
               <SelectValue placeholder="Google My Business" />
 
@@ -35,7 +35,7 @@ const DashboardNavigation = () => {
               />
             </SelectTrigger>
             <SelectContent>
-              {sourceOptions.map((option) => (
+              {sourceSelectOptions.map((option) => (
                 <SelectItem key={option} value={option}>
                   {option}
                 </SelectItem>

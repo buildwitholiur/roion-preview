@@ -11,9 +11,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, Download } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -23,12 +20,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Pagination } from "./pagination";
 import {
   Select,
@@ -37,6 +28,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./select";
+import SheetButton from "../shared/SheetButton";
+import { matchTableStatus } from "@/data/match-table-status";
+import { matchReportSelectOptions } from "@/data/selectOptions";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -47,7 +41,6 @@ interface DataTableProps<TData, TValue> {
   onRowExpand?: (rowId: string) => void;
   renderExpandedRow?: (row: TData) => React.ReactNode;
   showSearch?: boolean;
-  showColumnToggle?: boolean;
   showPagination?: boolean;
   children?: (props: { table: any }) => React.ReactNode;
   onRowClick?: (rowId: string) => void;
@@ -63,7 +56,6 @@ export function DataTable<TData, TValue>({
   expandedRows,
   renderExpandedRow,
   showSearch = true,
-  showColumnToggle = true,
   showPagination = true,
   children,
   tableType = "leads",
@@ -76,10 +68,15 @@ export function DataTable<TData, TValue>({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [globalFilter, setGlobalFilter] = React.useState("");
-  const [statusFilter, setStatusFilter] = React.useState("all");
+  const [statusFilter, setStatusFilter] = React.useState("");
 
   const filteredData = React.useMemo(() => {
-    if (tableType !== "match-report" || statusFilter === "all") return data;
+    if (
+      tableType !== "match-report" ||
+      statusFilter === "" ||
+      statusFilter === "all"
+    )
+      return data;
     return data.filter((item: any) => item.status === statusFilter);
   }, [data, statusFilter, tableType]);
 
@@ -112,95 +109,68 @@ export function DataTable<TData, TValue>({
 
   const renderMatchReportHeader = () => (
     <div
-      className={`flex flex-col md:flex-row md:items-center gap-3 md:gap-5 ${
+      className={`flex flex-col md:flex-row md:items-center gap-3 md:gap-5 md:justify-between ${
         showSearch ? "mb-5" : "mb-2.5"
       }`}
     >
-      {title && (
-        <h2 className="text-font-18 md:text-font-20 font-bold text-custom-gray-600">
-          {title}
-        </h2>
-      )}
+      <div className="flex-1 flex flex-col md:flex-row md:items-center">
+        {title && (
+          <h2 className="text-font-18 md:text-font-20 font-bold text-custom-gray-600 mr-5">
+            {title}
+          </h2>
+        )}
 
-      {(showSearch || showColumnToggle) && (
-        <div className="flex items-center justify-between">
-          {showSearch && (
-            <div className="relative w-full max-w-[334px]">
-              <img
-                className="absolute left-5 top-1/2 transform -translate-y-1/2 w-4.5 h-auto"
-                src="/images/search.svg"
-                alt="search"
-              />
+        {showSearch && (
+          <div className="relative w-full max-w-[334px]">
+            <img
+              className="absolute left-5 top-1/2 transform -translate-y-1/2 w-4.5 h-auto"
+              src="/images/search.svg"
+              alt="search"
+            />
 
-              <Input
-                placeholder={searchPlaceholder}
-                value={globalFilter}
-                onChange={(event) => setGlobalFilter(event.target.value)}
-                className="pl-12"
-              />
-            </div>
-          )}
-
-          {!showColumnToggle && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-auto">
-                  Columns <ChevronDown className="ml-2 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {table
-                  .getAllColumns()
-                  .filter((column) => column.getCanHide())
-                  .map((column) => {
-                    return (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) =>
-                          column.toggleVisibility(!!value)
-                        }
-                      >
-                        {column.id}
-                      </DropdownMenuCheckboxItem>
-                    );
-                  })}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
-
-          <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-full sm:w-48">
-              <SelectValue placeholder="Select Match Report" />
-              <ChevronDown className="ml-2 h-4 w-4" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Reports</SelectItem>
-              <SelectItem value="mismatched">Mismatched Only</SelectItem>
-              <SelectItem value="confirmed">Confirmed Only</SelectItem>
-              <SelectItem value="unassigned">Unassigned Only</SelectItem>
-            </SelectContent>
-          </Select>
-
-          {/* Status Badges */}
-          <div className="flex items-center gap-2">
-            <div className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200 border-yellow-300">
-              <div className="w-2 h-2 rounded-full bg-yellow-500 mr-2" />
-              Mismatched
-            </div>
+            <Input
+              placeholder={searchPlaceholder}
+              value={globalFilter}
+              onChange={(event) => setGlobalFilter(event.target.value)}
+              className="pl-12"
+            />
           </div>
+        )}
 
-          {/* Download Button */}
-          <Button
-            variant="outline"
-            className="flex items-center gap-2 hover:bg-gray-50"
-          >
-            <Download className="w-4 h-4" />
-            Download Excel
-          </Button>
-        </div>
-      )}
+        <Select value={statusFilter} onValueChange={setStatusFilter}>
+          <SelectTrigger className="w-full md:w-fit md:min-w-[208px] min-h-[37px] ml-5">
+            <SelectValue placeholder="Select Match Report" />
+
+            <img
+              className="w-3 h-auto"
+              src="/images/select-arrow.svg"
+              alt="select arrow"
+            />
+          </SelectTrigger>
+          <SelectContent>
+            {matchReportSelectOptions.map((option) => (
+              <SelectItem key={option.label} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {/* Status Badges */}
+        <ul className="flex items-center gap-5 border-x border-custom-gray-200 px-[35px] mx-[35px]">
+          {matchTableStatus.map((item) => (
+            <li className="flex items-center gap-2.5">
+              <span
+                className={`w-4 aspect-square rounded-full ${item.bgColor}`}
+              ></span>
+              <p className={`${item.textColor}`}>{item.label}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Download Button */}
+      <SheetButton label="Download Excel" icon="/images/file-lines.svg" />
     </div>
   );
 
@@ -216,53 +186,20 @@ export function DataTable<TData, TValue>({
         </h2>
       )}
 
-      {(showSearch || showColumnToggle) && (
-        <div className="flex items-center justify-between">
-          {showSearch && (
-            <div className="relative w-full max-w-[334px]">
-              <img
-                className="absolute left-5 top-1/2 transform -translate-y-1/2 w-4.5 h-auto"
-                src="/images/search.svg"
-                alt="search"
-              />
+      {showSearch && (
+        <div className="relative w-full max-w-[334px]">
+          <img
+            className="absolute left-5 top-1/2 transform -translate-y-1/2 w-4.5 h-auto"
+            src="/images/search.svg"
+            alt="search"
+          />
 
-              <Input
-                placeholder={searchPlaceholder}
-                value={globalFilter}
-                onChange={(event) => setGlobalFilter(event.target.value)}
-                className="pl-12"
-              />
-            </div>
-          )}
-
-          {!showColumnToggle && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-auto">
-                  Columns <ChevronDown className="ml-2 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {table
-                  .getAllColumns()
-                  .filter((column) => column.getCanHide())
-                  .map((column) => {
-                    return (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) =>
-                          column.toggleVisibility(!!value)
-                        }
-                      >
-                        {column.id}
-                      </DropdownMenuCheckboxItem>
-                    );
-                  })}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
+          <Input
+            placeholder={searchPlaceholder}
+            value={globalFilter}
+            onChange={(event) => setGlobalFilter(event.target.value)}
+            className="pl-12"
+          />
         </div>
       )}
     </div>

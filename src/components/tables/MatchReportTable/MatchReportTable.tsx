@@ -55,7 +55,6 @@ const MatchReportTable = () => {
         expandedRows={expandedRows}
         renderExpandedRow={renderExpandedRow}
         showSearch={true}
-        showColumnToggle={true}
         showPagination={true}
         onRowClick={handleRowExpand}
         tableType="match-report"

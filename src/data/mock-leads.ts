@@ -1193,12 +1193,4 @@ export const mockLeads: Lead[] = [
   },
 ];
 
-export const sourceOptions = [
-  "Google My Business",
-  "Facebook Ads",
-  "Website Form",
-  "Referral",
-  "Google Ads",
-  "LinkedIn",
-  "Direct Call",
-];
+

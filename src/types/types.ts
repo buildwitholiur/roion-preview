@@ -178,3 +178,20 @@ export interface CaseStatItemProps {
   noSign?: boolean;
   noParentheses?: boolean;
 }
+
+export interface SheetButtonProps {
+  label: string;
+  icon?: string;
+  iconAlt?: string;
+}
+
+export type MatchTableStatus = {
+  label: string;
+  bgColor: string;
+  textColor: string;
+};
+
+export type matchReportSelectOptionsData = {
+  label: string;
+  value: string;
+};

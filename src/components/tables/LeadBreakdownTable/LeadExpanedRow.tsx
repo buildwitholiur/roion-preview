@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { sourceOptions } from "@/data/mock-leads";
 
 import {
   Popover,
@@ -21,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import type { LeadExpandRowProps } from "@/types/types";
+import { sourceSelectOptions } from "@/data/selectOptions";
 
 export function LeadExpandRow({
   lead,
@@ -142,7 +142,7 @@ export function LeadExpandRow({
                   />
                 </SelectTrigger>
                 <SelectContent className="w-full">
-                  {sourceOptions.map((option) => (
+                  {sourceSelectOptions.map((option) => (
                     <SelectItem key={option} value={option}>
                       {option}
                     </SelectItem>

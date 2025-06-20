@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { sourceOptions } from "@/data/mock-leads";
 
 import {
   Popover,
@@ -21,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import type { MatchReportExpandRowProps } from "@/types/types";
+import { sourceSelectOptions } from "@/data/selectOptions";
 
 export function MatchReportExpandRow({
   report,
@@ -166,7 +166,7 @@ export function MatchReportExpandRow({
                   />
                 </SelectTrigger>
                 <SelectContent className="w-full">
-                  {sourceOptions.map((option) => (
+                  {sourceSelectOptions.map((option) => (
                     <SelectItem key={option} value={option}>
                       {option}
                     </SelectItem>
@@ -191,7 +191,7 @@ export function MatchReportExpandRow({
                   />
                 </SelectTrigger>
                 <SelectContent className="w-full">
-                  {sourceOptions.map((option) => (
+                  {sourceSelectOptions.map((option) => (
                     <SelectItem key={option} value={option}>
                       {option}
                     </SelectItem>
@@ -234,7 +234,7 @@ export function MatchReportExpandRow({
               History
             </h5>
 
-            <ul className="space-y-2.5 max-h-[234px] overflow-y-auto">
+            <ul className="space-y-2.5 max-h-[218px] overflow-y-auto">
               {report.history ? (
                 report.history.map((entry, index) => (
                   <li
@@ -245,7 +245,9 @@ export function MatchReportExpandRow({
                   </li>
                 ))
               ) : (
-                <li className="text-sm text-gray-500">No history available</li>
+                <li className="text-font-18 font-medium text-custom-gray-600">
+                  No history available
+                </li>
               )}
             </ul>
           </div>
