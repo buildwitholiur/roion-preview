@@ -120,6 +120,7 @@
   --color-custom-gray-50: #dcdcdc;
   --color-custom-gray-100: #dddddd;
   --color-custom-gray-200: #cccccc;
+  --color-custom-gray-250: #f7f7f7;
   --color-custom-gray-300: #aaaaaa;
   --color-custom-gray-400: #5e5e5e;
   --color-custom-gray-500: #5a5a5a;
@@ -141,12 +142,17 @@
   --color-custom-teal-200: #29c4be;
   --color-custom-green: #14ae5c;
   --color-custom-green-100: #e5f3e5;
+  --color-custom-green-200: #eaffde;
   --color-custom-orange: #ea9c00;
   --color-custom-orange-400: #e2ae01;
   --color-custom-orange-500: #ffc533;
   --color-custom-orange-100: #fef4db;
+  --color-custom-orange-200: #fff6de;
   --color-custom-red: #ee4d54;
   --color-custom-red-100: #fce1e1;
+
+  --text-font-14: 14px;
+  --text-font-14--line-height: 1.5;
 
   --text-font-16: 16px;
   --text-font-16--line-height: 1.5;
@@ -221,6 +227,10 @@
 
   .select__trigger {
     @apply w-[201px] !h-9.5 bg-custom-white text-custom-gray-700 !text-font-16 font-medium rounded-sm border-custom-gray-200 focus-visible:border-custom-gray-200 pl-5 pr-[13px];
+  }
+
+  .custom__btn {
+    @apply text-font-16 font-bold py-1 px-4 min-w-[90px] w-fit h-10 flex items-center justify-center text-custom-blue-500 bg-custom-white-600 border border-custom-blue-50 transition-all duration-200 ease-in-out hover:bg-custom-white-300;
   }
 }
 

@@ -20,6 +20,7 @@ export interface IntentTopBarProps {
 
 export interface IntentCardProps {
   content?: React.ReactNode;
+  action?: React.ReactNode;
   title: string;
   isHelp?: boolean;
 }
@@ -80,6 +81,7 @@ export interface IntakeChartConfig {
   [key: string]: ChartItemConfig;
 }
 
+// Marketing Source Table Type
 export interface MarketingSource {
   id: string;
   channel: string;
@@ -91,6 +93,7 @@ export interface MarketingSource {
   total_lead_value: number;
 }
 
+// Lead Table Type
 export interface Lead {
   id: number;
   marketing_source: string;
@@ -118,4 +121,60 @@ export interface LeadExpandRowProps {
   formData: LeadFormData;
   onUpdateField: (field: keyof LeadFormData, value: string) => void;
   onSave: () => void;
+}
+
+// Match Report Table Type
+export interface MatchReport {
+  id: number;
+  full_name: string;
+  date: string;
+  phone_number: string;
+  intent_source: string;
+  real_source: string;
+  intent_score: number;
+  intent_score_bg: "green" | "yellow" | "red";
+  actual_value: number;
+  potential_value: number;
+  status: "mismatched" | "confirmed" | "unassigned";
+  matching_source?: string;
+  additional_notes?: string;
+  history?: HistoryEntry[];
+}
+
+export interface HistoryEntry {
+  date: string;
+  action: string;
+}
+
+export interface MatchReportFormData {
+  firstName: string;
+  lastName: string;
+  date: string;
+  phone_number: string;
+  intent_source: string;
+  real_source: string;
+  matching_source: string;
+  actual_value: string;
+  potential_value: string;
+  additional_notes: string;
+}
+
+export interface MatchReportExpandRowProps {
+  report: MatchReport;
+  formData: MatchReportFormData;
+  onUpdateField: (field: keyof MatchReportFormData, value: string) => void;
+  onSave: () => void;
+}
+
+// CaseSync Page Types
+export interface CaseStatItemProps {
+  label: string;
+  value: number | string;
+  valueColor?: string;
+  percentChange?: number;
+  percentAmount?: string;
+  trend: "up" | "down";
+  comparisonLabel?: string;
+  noSign?: boolean;
+  noParentheses?: boolean;
 }
