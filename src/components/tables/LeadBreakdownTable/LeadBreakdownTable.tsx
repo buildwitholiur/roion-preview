@@ -55,7 +55,6 @@ const LeadBreakdownTable = () => {
         expandedRows={expandedRows}
         renderExpandedRow={renderExpandedRow}
         showSearch={true}
-        showColumnToggle={true}
         showPagination={true}
         onRowClick={handleRowExpand}
       />

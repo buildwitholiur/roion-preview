@@ -15,7 +15,6 @@ const MarketingBreakdownTable = () => {
         title="Marketing Source Breakdown"
         searchPlaceholder="Search channels..."
         showSearch={false}
-        showColumnToggle={false}
         showPagination={false}
       />
     </div>
