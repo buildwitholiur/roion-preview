@@ -115,6 +115,8 @@
 @theme {
   --font-rethink: "Rethink Sans", sans-serif;
 
+  --breakpoint-3xl: 1900px;
+
   --color-custom-black: #000;
   --color-custom-gray: #666666;
   --color-custom-gray-50: #dcdcdc;

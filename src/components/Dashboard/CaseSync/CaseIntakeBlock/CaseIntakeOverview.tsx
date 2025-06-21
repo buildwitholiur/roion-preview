@@ -2,7 +2,7 @@ import CaseStatItem from "../CaseStatItem";
 
 const CaseIntakeOverview = () => {
   return (
-    <div className="flex">
+    <div className="flex flex-col xl:flex-row">
       <CaseStatItem
         label="Total Cases Matched"
         value="12"

@@ -52,8 +52,8 @@ export function MatchReportExpandRow({
   return (
     <div className="px-8 2xl:pl-19 2xl:pr-4 pb-5.5 pt-8.5 space-y-4 bg-custom-white-600 custom__inner-shadow border-l-3 border-l-custom-blue">
       <div className="flex flex-col 2xl:flex-row gap-10">
-        <div className="flex-1 grid grid-cols-1 2xl:grid-cols-3 gap-4 md:gap-6">
-          <div className="2xl:space-y-6 grid grid-cols-2 2xl:block gap-5">
+        <div className="flex-1 grid grid-cols-1 xl:grid-cols-3 gap-4 md:gap-5">
+          <div className="xl:space-y-6 grid grid-cols-3 xl:block gap-5">
             <div className="space-y-1">
               <Label htmlFor={`firstName-${report.id}`}>First Name</Label>
               <Input
@@ -89,7 +89,7 @@ export function MatchReportExpandRow({
             </div>
           </div>
 
-          <div className="2xl:space-y-6 grid grid-cols-2 2xl:block gap-5">
+          <div className="xl:space-y-6 grid grid-cols-3 xl:block gap-5">
             <div className="space-y-1">
               <Label htmlFor={`date-${report.id}`}>Date</Label>
 
@@ -147,7 +147,7 @@ export function MatchReportExpandRow({
             </div>
           </div>
 
-          <div className="2xl:space-y-6 grid grid-cols-2 2xl:block gap-5">
+          <div className="xl:space-y-6 grid grid-cols-3 xl:block gap-5">
             <div className="space-y-1">
               <Label htmlFor={`intent_source-${report.id}`}>
                 Intent OI Source
@@ -215,7 +215,7 @@ export function MatchReportExpandRow({
             </div>
           </div>
 
-          <div className="col-span-3">
+          <div className="col-span-1 xl:col-span-3">
             <Textarea
               id={`additional_notes-${report.id}`}
               value={formData.additional_notes}
@@ -228,7 +228,7 @@ export function MatchReportExpandRow({
           </div>
         </div>
 
-        <div className="flex flex-col justify-between gap-5 2xl:gap-7 w-full max-w-[600px] whitespace-normal pb-9">
+        <div className="flex flex-col justify-between gap-5 2xl:gap-7 w-full 2xl:max-w-[600px] whitespace-normal pb-9">
           <div className="space-y-2.5">
             <h5 className="text-font-18 font-medium text-custom-blue-300">
               History

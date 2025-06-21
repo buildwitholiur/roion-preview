@@ -109,68 +109,77 @@ export function DataTable<TData, TValue>({
 
   const renderMatchReportHeader = () => (
     <div
-      className={`flex flex-col md:flex-row md:items-center gap-3 md:gap-5 md:justify-between ${
+      className={`flex flex-col 3xl:flex-row 3xl:items-center gap-5 md:gap-6 2xl:gap-[35px] 3xl:justify-between 3xl:pr-10 ${
         showSearch ? "mb-5" : "mb-2.5"
       }`}
     >
-      <div className="flex-1 flex flex-col md:flex-row md:items-center">
+      <div className="flex-1 flex flex-col xl:flex-row xl:items-center gap-5">
         {title && (
-          <h2 className="text-font-18 md:text-font-20 font-bold text-custom-gray-600 mr-5">
+          <h2 className="text-font-18 md:text-font-20 font-bold text-custom-gray-600">
             {title}
           </h2>
         )}
 
-        {showSearch && (
-          <div className="relative w-full max-w-[334px]">
-            <img
-              className="absolute left-5 top-1/2 transform -translate-y-1/2 w-4.5 h-auto"
-              src="/images/search.svg"
-              alt="search"
-            />
+        <div className="flex flex-1 flex-col md:flex-row md:items-center gap-3 md:gap-0">
+          {showSearch && (
+            <div className="relative w-full md:max-w-[300px]">
+              <img
+                className="absolute left-5 top-1/2 transform -translate-y-1/2 w-4.5 h-auto"
+                src="/images/search.svg"
+                alt="search"
+              />
 
-            <Input
-              placeholder={searchPlaceholder}
-              value={globalFilter}
-              onChange={(event) => setGlobalFilter(event.target.value)}
-              className="pl-12"
-            />
-          </div>
-        )}
+              <Input
+                placeholder={searchPlaceholder}
+                value={globalFilter}
+                name="search-report-table"
+                onChange={(event) => setGlobalFilter(event.target.value)}
+                className="pl-12"
+              />
+            </div>
+          )}
 
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-full md:w-fit md:min-w-[208px] min-h-[37px] ml-5">
-            <SelectValue placeholder="Select Match Report" />
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <SelectTrigger className="w-full md:w-fit md:min-w-[208px] min-h-[37px] md:ml-5">
+              <SelectValue placeholder="Select Match Report" />
 
-            <img
-              className="w-3 h-auto"
-              src="/images/select-arrow.svg"
-              alt="select arrow"
-            />
-          </SelectTrigger>
-          <SelectContent>
-            {matchReportSelectOptions.map((option) => (
-              <SelectItem key={option.label} value={option.value}>
-                {option.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+              <img
+                className="w-3 h-auto"
+                src="/images/select-arrow.svg"
+                alt="select arrow"
+              />
+            </SelectTrigger>
+            <SelectContent>
+              {matchReportSelectOptions.map((option) => (
+                <SelectItem key={option.label} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
 
+      <div className="flex flex-col md:flex-row md:items-center gap-5 md:gap-19 md:justify-between w-full 3xl:w-fit 3xl:justify-start">
         {/* Status Badges */}
-        <ul className="flex items-center gap-5 border-x border-custom-gray-200 px-[35px] mx-[35px]">
+        <ul className="flex items-center gap-3 md:gap-10 2xl:gap-5 3xl:border-x border-custom-gray-200 3xl:px-[35px] flex-wrap">
           {matchTableStatus.map((item) => (
             <li className="flex items-center gap-2.5">
               <span
-                className={`w-4 aspect-square rounded-full ${item.bgColor}`}
+                className={`w-3 md:w-4 aspect-square rounded-full ${item.bgColor}`}
               ></span>
-              <p className={`${item.textColor}`}>{item.label}</p>
+              <p className={`${item.textColor} text-font-14 md:text-font-16`}>
+                {item.label}
+              </p>
             </li>
           ))}
         </ul>
-      </div>
 
-      {/* Download Button */}
-      <SheetButton label="Download Excel" icon="/images/file-lines.svg" />
+        {/* Download Button */}
+        <div className="ml-auto">
+          <SheetButton label="Download Excel" icon="/images/file-lines.svg" />
+        </div>
+      </div>
     </div>
   );
 
@@ -255,14 +264,17 @@ export function DataTable<TData, TValue>({
                           ? "border-b-0 relative after:absolute after:content-[''] after:top-0 after:left-0 after:w-[3px] after:h-full after:bg-custom-blue"
                           : ""
                       } ${
-                        status === "mismatched" &&
-                        "bg-custom-orange-200 hover:bg-custom-orange-200"
+                        status === "mismatched"
+                          ? "bg-custom-orange-200 hover:bg-custom-orange-200"
+                          : ""
                       } ${
-                        status === "confirmed" &&
-                        "bg-custom-green-200 hover:bg-custom-green-200"
+                        status === "confirmed"
+                          ? "bg-custom-green-200 hover:bg-custom-green-200"
+                          : ""
                       } ${
-                        status === "unassigned" &&
-                        "bg-custom-gray-250 hover:bg-custom-gray-250"
+                        status === "unassigned"
+                          ? "bg-custom-gray-250 hover:bg-custom-gray-250"
+                          : ""
                       }`}
                       onClick={() => onRowClick?.(rowId)}
                     >

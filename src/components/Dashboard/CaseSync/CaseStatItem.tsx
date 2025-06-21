@@ -18,7 +18,7 @@ const CaseStatItem = ({
   const sign = isPositive ? "+" : "-";
 
   return (
-    <div className="space-y-2 border-r border-custom-blue-50 flex-1 pl-10 first-of-type:pl-0 last-of-type:border-r-0">
+    <div className="space-y-2 border-b 2xl:border-r xl:border-b-0 border-custom-blue-50 flex-1 pb-2.5 xl:pl-10 xl:pb-0 first-of-type:pb-2.5 last-of-type:border-b-0 xl:first-of-type:pl-0 xl:last-of-type:border-r-0 pt-2.5 first-of-type:pt-0 xl:pt-0 xl:first-of-type:pb-0">
       <h4 className="text-font-18 font-semibold text-custom-gray-500">
         {label}
       </h4>
