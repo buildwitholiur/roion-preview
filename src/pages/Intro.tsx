@@ -8,7 +8,7 @@ const Intro = () => {
         <h1 className="text-4xl">Go to the Dashboard Page</h1>
 
         <Button asChild className="w-fit mx-auto block text-center">
-          <Link to="/dashboard/intentoi">Dashboard</Link>
+          <Link to="/dashboard">Dashboard</Link>
         </Button>
       </div>
     </section>

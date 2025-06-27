@@ -45,6 +45,7 @@ interface DataTableProps<TData, TValue> {
   children?: (props: { table: any }) => React.ReactNode;
   onRowClick?: (rowId: string) => void;
   tableType?: "leads" | "match-report";
+  isSmallRow?: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -59,6 +60,7 @@ export function DataTable<TData, TValue>({
   showPagination = true,
   children,
   tableType = "leads",
+  isSmallRow,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -259,7 +261,9 @@ export function DataTable<TData, TValue>({
                   <React.Fragment key={row.id}>
                     <TableRow
                       data-state={row.getIsSelected() && "selected"}
-                      className={`border-custom-blue-50 h-16 cursor-pointer hover:bg-gray-50 ${
+                      className={`border-custom-blue-50 ${
+                        isSmallRow ? "h-12" : "h-16"
+                      } cursor-pointer hover:bg-gray-50 ${
                         isExpanded
                           ? "border-b-0 relative after:absolute after:content-[''] after:top-0 after:left-0 after:w-[3px] after:h-full after:bg-custom-blue"
                           : ""

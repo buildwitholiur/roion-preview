@@ -12,10 +12,22 @@ export type NavLink = {
   path: string;
 };
 
+export interface HomeTopBarProps {
+  title: string;
+  description: string;
+}
+
 export interface IntentTopBarProps {
   intentLogo: string;
   intentLogoAlt?: string;
   description: string;
+}
+
+export interface CaseTopBarProps {
+  title: string;
+  titleSmall?: string;
+  description1?: string;
+  description2?: string;
 }
 
 export interface IntentCardProps {
@@ -79,6 +91,20 @@ export interface ChartItemConfig {
 
 export interface IntakeChartConfig {
   [key: string]: ChartItemConfig;
+}
+
+// Match Chart
+export interface MatchChartDataItem {
+  month: string;
+  intentOI: number;
+  matchedCases: number;
+}
+
+// Lead Chart
+export interface LeadChartDataItem {
+  month: string;
+  totalLeads: number;
+  totalCasesMatched: number;
 }
 
 // Marketing Source Table Type
@@ -166,6 +192,18 @@ export interface MatchReportExpandRowProps {
   onSave: () => void;
 }
 
+// Channel Table Type
+export interface Channel {
+  id: string;
+  channel: string;
+  leads: number;
+  cases: number;
+  match: string;
+  estimated_value: number;
+  actual_value: number;
+  roi_accuracy: string;
+}
+
 // CaseSync Page Types
 export interface CaseStatItemProps {
   label: string;
@@ -195,3 +233,31 @@ export type matchReportSelectOptionsData = {
   label: string;
   value: string;
 };
+
+// Home Page
+export interface HomeStatCardProps {
+  label: string;
+  value: number | string;
+  valueColor?: string;
+  percentChange?: number;
+  percentAmount?: string;
+  trend: "up" | "down";
+  comparisonLabel?: string;
+  isHelp?: boolean;
+  noSign?: boolean;
+  noParentheses?: boolean;
+  isBorder?: boolean;
+}
+
+export interface HomeAlertData {
+  title: string;
+  description: string;
+  date: string;
+  alertType: "high" | "low" | "missed";
+}
+
+export type HomeAlertTypeStyle = {
+  bgColor: string;
+};
+
+export type HomeAlertType = HomeAlertData["alertType"];
